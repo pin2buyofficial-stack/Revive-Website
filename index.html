@@ -1,0 +1,2305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REVIVE — New Era Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #D42B2B;
+            --red-dark: #A01E1E;
+            --red-light: #F04040;
+            --black: #0A0A0A;
+            --charcoal: #1A1A1A;
+            --gray: #888;
+            --light-gray: #F4F4F2;
+            --white: #FFFFFF;
+            --off-white: #FAF9F7;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--off-white);
+            color: var(--black);
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        /* ── CUSTOM CURSOR ── */
+        #cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: var(--red);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+        }
+
+        #cursor-ring {
+            position: fixed;
+            width: 38px;
+            height: 38px;
+            border: 1.5px solid rgba(212, 43, 43, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: all 0.15s ease;
+        }
+
+        body.hovering #cursor {
+            width: 48px;
+            height: 48px;
+            background: rgba(212, 43, 43, 0.15);
+        }
+
+        body.hovering #cursor-ring {
+            width: 56px;
+            height: 56px;
+            border-color: var(--red);
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 48px;
+            background: rgba(250, 249, 247, 0.9);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: padding 0.4s ease;
+        }
+
+        nav.scrolled {
+            padding: 16px 48px;
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 0.25em;
+            color: var(--black);
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            color: var(--red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--charcoal);
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--red);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-cart {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--black);
+            color: var(--white);
+            padding: 10px 22px;
+            border-radius: 2px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .nav-cart:hover {
+            background: var(--red);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--black);
+            transition: all 0.3s;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding-top: 80px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 60px 80px 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--red);
+            color: var(--white);
+            padding: 6px 16px;
+            border-radius: 2px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            width: fit-content;
+            margin-bottom: 32px;
+            animation: fadeUp 0.8s ease 0.2s both;
+        }
+
+        .hero-badge::before {
+            content: '★';
+        }
+
+        .hero-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 6vw, 6.5rem);
+            font-weight: 900;
+            line-height: 1.02;
+            color: var(--black);
+            margin-bottom: 28px;
+            animation: fadeUp 0.8s ease 0.35s both;
+        }
+
+        .hero-headline em {
+            font-style: italic;
+            color: var(--red);
+            display: block;
+        }
+
+        .hero-sub {
+            font-size: 1rem;
+            color: var(--gray);
+            line-height: 1.7;
+            max-width: 380px;
+            margin-bottom: 44px;
+            animation: fadeUp 0.8s ease 0.5s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            animation: fadeUp 0.8s ease 0.65s both;
+        }
+
+        .btn-primary {
+            background: var(--black);
+            color: var(--white);
+            padding: 16px 36px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--black);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--red);
+            border-color: var(--red);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--black);
+            padding: 16px 36px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 2px solid var(--black);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 60px;
+            animation: fadeUp 0.8s ease 0.8s both;
+        }
+
+        .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            line-height: 1;
+            color: var(--black);
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--gray);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-right {
+            position: relative;
+            overflow: hidden;
+            animation: fadeLeft 1s ease 0.2s both;
+        }
+
+        .hero-image-wrap {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image-wrap img,
+        .hero-img-placeholder {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Placeholder gradient image for hero */
+        .hero-img-placeholder {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1010 40%, #D42B2B 75%, #F04040 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 40px;
+        }
+
+        .hero-img-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 8rem;
+            line-height: 0.9;
+            color: rgba(255, 255, 255, 0.07);
+            user-select: none;
+        }
+
+        .hero-tag {
+            position: absolute;
+            right: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--white);
+            padding: 20px 24px;
+            border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            min-width: 180px;
+            animation: fadeLeft 0.8s ease 1s both;
+        }
+
+        .hero-tag-label {
+            font-size: 0.68rem;
+            color: var(--gray);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .hero-tag-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 80px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray);
+            z-index: 3;
+            animation: fadeUp 0.8s ease 1s both;
+        }
+
+        .scroll-line {
+            width: 40px;
+            height: 1px;
+            background: var(--gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--red);
+            animation: scrollLine 2s ease infinite;
+        }
+
+        /* ── MARQUEE ── */
+        .marquee-strip {
+            background: var(--red);
+            overflow: hidden;
+            padding: 14px 0;
+            border-top: 1px solid var(--red-dark);
+        }
+
+        .marquee-inner {
+            display: flex;
+            gap: 0;
+            animation: marquee 20s linear infinite;
+            width: max-content;
+        }
+
+        .marquee-item {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.2em;
+            color: var(--white);
+            padding: 0 40px;
+            white-space: nowrap;
+        }
+
+        .marquee-item span {
+            color: rgba(255, 255, 255, 0.4);
+            margin: 0 20px;
+        }
+
+        /* ── SECTION BASE ── */
+        section {
+            padding: 100px 80px;
+        }
+
+        .section-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--red);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--black);
+            margin-bottom: 16px;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--red);
+        }
+
+        .section-sub {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.7;
+            max-width: 480px;
+        }
+
+        /* ── FEATURED PRODUCTS ── */
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 56px;
+        }
+
+        .view-all {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--black);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .view-all:hover {
+            color: var(--red);
+        }
+
+        .view-all::after {
+            content: '→';
+            transition: transform 0.3s;
+        }
+
+        .view-all:hover::after {
+            transform: translateX(4px);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .product-card {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: none;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+        }
+
+        .product-img {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .product-img-inner {
+            transform: scale(1.06);
+        }
+
+        .product-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Product color themes */
+        .pc-1 {
+            background: linear-gradient(160deg, #1a1a1a, #2c2c2c);
+        }
+
+        .pc-2 {
+            background: linear-gradient(160deg, #D42B2B, #8B1A1A);
+        }
+
+        .pc-3 {
+            background: linear-gradient(160deg, #3d3d3d, #1a1a1a);
+        }
+
+        .pc-4 {
+            background: linear-gradient(160deg, #6B1A1A, #D42B2B);
+        }
+
+        .pc-5 {
+            background: linear-gradient(160deg, #222, #D42B2B99);
+        }
+
+        .pc-6 {
+            background: linear-gradient(160deg, #2a1a1a, #5a2a2a);
+        }
+
+        .pc-7 {
+            background: linear-gradient(160deg, #111, #333);
+        }
+
+        .pc-8 {
+            background: linear-gradient(160deg, #8B1A1A, #1a1a1a);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--red);
+            color: var(--white);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 2px;
+            z-index: 2;
+        }
+
+        .product-wishlist {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 34px;
+            height: 34px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            cursor: none;
+            z-index: 2;
+            transition: background 0.3s, transform 0.3s;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .product-card:hover .product-wishlist {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .product-wishlist:hover {
+            background: var(--red);
+        }
+
+        .product-quick-view {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.9);
+            color: var(--white);
+            text-align: center;
+            padding: 14px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transform: translateY(100%);
+            transition: transform 0.35s ease;
+            cursor: none;
+        }
+
+        .product-card:hover .product-quick-view {
+            transform: translateY(0);
+        }
+
+        .product-info {
+            padding: 16px 18px 20px;
+        }
+
+        .product-name {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .product-cat {
+            font-size: 0.7rem;
+            color: var(--gray);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-current {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        .price-old {
+            font-size: 0.82rem;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        .product-colors {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(0, 0, 0, 0.1);
+            cursor: none;
+            transition: transform 0.2s;
+        }
+
+        .color-dot:hover {
+            transform: scale(1.3);
+        }
+
+        /* ── CATEGORIES ── */
+        .categories {
+            background: var(--black);
+        }
+
+        .categories .section-title {
+            color: var(--white);
+        }
+
+        .categories .section-sub {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 280px 280px;
+            gap: 16px;
+            margin-top: 56px;
+        }
+
+        .cat-card {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: none;
+            transition: transform 0.4s ease;
+        }
+
+        .cat-card:hover {
+            transform: scale(0.98);
+        }
+
+        .cat-card:first-child {
+            grid-row: span 2;
+        }
+
+        .cat-bg {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .cat-card:hover .cat-bg {
+            transform: scale(1.04);
+        }
+
+        .cat-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 28px;
+        }
+
+        .cat-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+
+        .cat-count {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .cat-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 2px;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .cat-link:hover {
+            color: var(--red);
+            border-color: var(--red);
+        }
+
+        /* Category placeholder backgrounds */
+        .cbg-1 {
+            background: linear-gradient(135deg, #1a1a1a, #D42B2B55, #2d2d2d);
+        }
+
+        .cbg-2 {
+            background: linear-gradient(160deg, #2a2a2a, #444);
+        }
+
+        .cbg-3 {
+            background: linear-gradient(160deg, #D42B2B, #8B1A1A);
+        }
+
+        .cbg-4 {
+            background: linear-gradient(160deg, #333, #1a1a1a);
+        }
+
+        .cbg-5 {
+            background: linear-gradient(160deg, #4a1a1a, #D42B2B55);
+        }
+
+        /* ── INSTAGRAM GRID ── */
+        .instagram-section {
+            background: var(--off-white);
+        }
+
+        .ig-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .ig-handle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--red);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .ig-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+        }
+
+        .ig-item {
+            aspect-ratio: 1;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+            cursor: none;
+        }
+
+        .ig-bg {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .ig-item:hover .ig-bg {
+            transform: scale(1.08);
+        }
+
+        .ig-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(212, 43, 43, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 6px;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            color: var(--white);
+        }
+
+        .ig-item:hover .ig-overlay {
+            opacity: 1;
+        }
+
+        .ig-icon {
+            font-size: 1.4rem;
+        }
+
+        .ig-likes {
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+
+        /* IG placeholder colors */
+        .ig-1 {
+            background: linear-gradient(135deg, #1a1a1a, #3a1a1a);
+        }
+
+        .ig-2 {
+            background: linear-gradient(135deg, #D42B2B, #7a1515);
+        }
+
+        .ig-3 {
+            background: linear-gradient(135deg, #2a2a2a, #D42B2B55);
+        }
+
+        .ig-4 {
+            background: linear-gradient(135deg, #3a1515, #D42B2B);
+        }
+
+        .ig-5 {
+            background: linear-gradient(135deg, #111, #333);
+        }
+
+        .ig-6 {
+            background: linear-gradient(135deg, #D42B2B80, #1a1a1a);
+        }
+
+        /* ── BRAND STORY ── */
+        .brand-story {
+            background: var(--black);
+            color: var(--white);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            padding: 120px 80px;
+        }
+
+        .story-left .section-label {
+            color: rgba(212, 43, 43, 0.9);
+        }
+
+        .story-left .section-title {
+            color: var(--white);
+        }
+
+        .story-left .section-title em {
+            color: var(--red);
+        }
+
+        .story-body {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.85;
+            margin-top: 24px;
+        }
+
+        .story-cta {
+            margin-top: 40px;
+        }
+
+        .story-right {
+            position: relative;
+        }
+
+        .story-visual {
+            height: 520px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #D42B2B, #1a1a1a, #D42B2B22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .story-visual-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12rem;
+            line-height: 0.8;
+            color: rgba(255, 255, 255, 0.06);
+            text-align: center;
+            user-select: none;
+        }
+
+        .story-stat-float {
+            position: absolute;
+            bottom: -24px;
+            left: -24px;
+            background: var(--red);
+            color: var(--white);
+            padding: 24px 32px;
+            border-radius: 4px;
+        }
+
+        .story-stat-float .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8rem;
+            line-height: 1;
+        }
+
+        .story-stat-float .stat-label {
+            font-size: 0.72rem;
+            opacity: 0.8;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ── WHY CHOOSE US ── */
+        .why-us {
+            background: var(--light-gray);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-top: 56px;
+        }
+
+        .why-card {
+            background: var(--white);
+            border-radius: 4px;
+            padding: 36px 28px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .why-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            border-color: var(--red);
+        }
+
+        .why-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 24px;
+        }
+
+        .why-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 10px;
+        }
+
+        .why-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* ── REVIEWS ── */
+        .reviews {
+            background: var(--off-white);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 56px;
+        }
+
+        .review-card {
+            background: var(--white);
+            border-radius: 4px;
+            padding: 32px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .review-stars {
+            color: var(--red);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .review-text {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            line-height: 1.75;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        .ra-1 {
+            background: linear-gradient(135deg, var(--red), var(--red-dark));
+        }
+
+        .ra-2 {
+            background: linear-gradient(135deg, #2a2a2a, #555);
+        }
+
+        .ra-3 {
+            background: linear-gradient(135deg, var(--red-dark), #2a1a1a);
+        }
+
+        .review-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .review-loc {
+            font-size: 0.72rem;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .review-ig {
+            font-size: 0.7rem;
+            color: var(--red);
+            margin-top: 2px;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 80px 80px 40px;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {}
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            letter-spacing: 0.25em;
+            color: var(--white);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .footer-logo span {
+            color: var(--red);
+        }
+
+        .footer-tagline {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.7;
+            max-width: 280px;
+            margin-bottom: 28px;
+        }
+
+        .footer-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #25D366;
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 3px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-whatsapp:hover {
+            opacity: 0.85;
+        }
+
+        .footer-col-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--red);
+        }
+
+        .footer-contact-item {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .footer-contact-item strong {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 14px;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: var(--red);
+            border-color: var(--red);
+            color: var(--white);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeLeft {
+            from {
+                opacity: 0;
+                transform: translateX(28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes scrollLine {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* ── TICKER ── */
+        .ticker {
+            background: var(--off-white);
+            padding: 20px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        .ticker-inner {
+            display: flex;
+            gap: 0;
+            animation: marquee 18s linear infinite;
+            width: max-content;
+        }
+
+        .ticker-item {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--gray);
+            padding: 0 48px;
+            white-space: nowrap;
+        }
+
+        .ticker-sep {
+            color: var(--red);
+            font-style: normal;
+        }
+
+        /* ── PRODUCT SECTION WITH TABS ── */
+        .product-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 48px;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 2px;
+            cursor: none;
+            transition: all 0.25s ease;
+            color: var(--gray);
+        }
+
+        .tab-btn.active,
+        .tab-btn:hover {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        .tab-btn.active {
+            background: var(--red);
+            border-color: var(--red);
+        }
+
+        /* ── PROMO BANNER ── */
+        .promo-banner {
+            background: var(--red);
+            color: var(--white);
+            padding: 60px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .promo-text .label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 12px;
+        }
+
+        .promo-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            font-weight: 900;
+        }
+
+        .promo-cta {
+            background: var(--white);
+            color: var(--red);
+            padding: 16px 36px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            white-space: nowrap;
+            transition: transform 0.3s ease;
+        }
+
+        .promo-cta:hover {
+            transform: scale(1.03);
+        }
+
+        /* ── MOBILE ── */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .hero-right {
+                height: 60vw;
+            }
+
+            .hero-left {
+                padding: 60px 40px 40px;
+            }
+
+            section {
+                padding: 70px 40px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cat-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+
+            .cat-card:first-child {
+                grid-row: span 1;
+            }
+
+            .ig-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .brand-story {
+                grid-template-columns: 1fr;
+                padding: 70px 40px;
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            nav {
+                padding: 18px 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .promo-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 50px 40px;
+            }
+
+            footer {
+                padding: 60px 40px 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .ig-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .cat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                gap: 24px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-outline {
+                width: 100%;
+                text-align: center;
+            }
+
+            section {
+                padding: 60px 24px;
+            }
+
+            footer {
+                padding: 50px 24px 28px;
+            }
+
+            .promo-banner {
+                padding: 40px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- ── NAV ── -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">REVI<span>VE</span></a>
+        <ul class="nav-links">
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a href="#" class="nav-cart">Bag (0)</a>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section class="hero" id="home">
+        <div class="hero-left">
+            <div class="hero-badge">New Collection 2025</div>
+            <h1 class="hero-headline">
+                Dress to<br>
+                <em>Revive</em><br>
+                Your Soul
+            </h1>
+            <p class="hero-sub">Trendy, bold, and beautifully crafted clothing for the woman who dares to express
+                herself without limits.</p>
+            <div class="hero-cta">
+                <a href="#collections" class="btn-primary">Shop Now</a>
+                <a href="#categories" class="btn-outline">Explore All</a>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <div class="stat-num">2K+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div>
+                    <div class="stat-num">150+</div>
+                    <div class="stat-label">New Styles</div>
+                </div>
+                <div>
+                    <div class="stat-num">4.9★</div>
+                    <div class="stat-label">Avg Rating</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="hero-image-wrap">
+                <div class="hero-img-placeholder">
+                    <div class="hero-img-text">REVIVE</div>
+                </div>
+            </div>
+            <div class="hero-tag">
+                <div class="hero-tag-label">Starting From</div>
+                <div class="hero-tag-price">₹499</div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="scroll-line"></div>
+            Scroll to Explore
+        </div>
+    </section>
+
+    <!-- ── MARQUEE ── -->
+    <div class="marquee-strip">
+        <div class="marquee-inner">
+            <div class="marquee-item">New Collection <span>✦</span></div>
+            <div class="marquee-item">Premium Quality <span>✦</span></div>
+            <div class="marquee-item">Express Delivery <span>✦</span></div>
+            <div class="marquee-item">Best Price Guaranteed <span>✦</span></div>
+            <div class="marquee-item">Trendy Styles <span>✦</span></div>
+            <div class="marquee-item">Follow @revive.thestore <span>✦</span></div>
+            <!-- Duplicate for seamless loop -->
+            <div class="marquee-item">New Collection <span>✦</span></div>
+            <div class="marquee-item">Premium Quality <span>✦</span></div>
+            <div class="marquee-item">Express Delivery <span>✦</span></div>
+            <div class="marquee-item">Best Price Guaranteed <span>✦</span></div>
+            <div class="marquee-item">Trendy Styles <span>✦</span></div>
+            <div class="marquee-item">Follow @revive.thestore <span>✦</span></div>
+        </div>
+    </div>
+
+    <!-- ── TICKER ── -->
+    <div class="ticker">
+        <div class="ticker-inner">
+            <span class="ticker-item">"Fashion is the armor to survive everyday life" <span
+                    class="ticker-sep">—</span></span>
+            <span class="ticker-item">Shop the latest looks that define your vibe <span
+                    class="ticker-sep">—</span></span>
+            <span class="ticker-item">Be bold. Be trendy. Be REVIVE <span class="ticker-sep">—</span></span>
+            <span class="ticker-item">New drops every week — don't miss out <span class="ticker-sep">—</span></span>
+            <span class="ticker-item">"Fashion is the armor to survive everyday life" <span
+                    class="ticker-sep">—</span></span>
+            <span class="ticker-item">Shop the latest looks that define your vibe <span
+                    class="ticker-sep">—</span></span>
+            <span class="ticker-item">Be bold. Be trendy. Be REVIVE <span class="ticker-sep">—</span></span>
+            <span class="ticker-item">New drops every week — don't miss out <span class="ticker-sep">—</span></span>
+        </div>
+    </div>
+
+    <!-- ── FEATURED PRODUCTS ── -->
+    <section id="collections" style="background: var(--off-white);">
+        <div class="products-header reveal">
+            <div>
+                <div class="section-label">Featured</div>
+                <h2 class="section-title">Trending <em>Right Now</em></h2>
+            </div>
+            <a href="#" class="view-all">View All Products</a>
+        </div>
+
+        <div class="product-tabs reveal reveal-delay-1">
+            <button class="tab-btn active">Best Sellers</button>
+            <button class="tab-btn">New Arrivals</button>
+            <button class="tab-btn">Trending</button>
+            <button class="tab-btn">Sale</button>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card reveal reveal-delay-1">
+                <div class="product-img">
+                    <div class="product-img-inner pc-1 product-placeholder">TOP</div>
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-wishlist">♡</div>
+                    <div class="product-quick-view">+ Quick View</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-cat">Tops</div>
+                    <div class="product-name">Noir Ruffle Off-Shoulder Top</div>
+                    <div class="product-price">
+                        <span class="price-current">₹649</span>
+                        <span class="price-old">₹999</span>
+                    </div>
+                    <div class="product-colors">
+                        <div class="color-dot" style="background:#0A0A0A"></div>
+                        <div class="color-dot" style="background:#D42B2B"></div>
+                        <div class="color-dot" style="background:#5a3d3d"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 2 -->
+            <div class="product-card reveal reveal-delay-2">
+                <div class="product-img">
+                    <div class="product-img-inner pc-2 product-placeholder">DRESS</div>
+                    <div class="product-badge">New</div>
+                    <div class="product-wishlist">♡</div>
+                    <div class="product-quick-view">+ Quick View</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-cat">Dresses</div>
+                    <div class="product-name">Scarlet Midi Wrap Dress</div>
+                    <div class="product-price">
+                        <span class="price-current">₹1,099</span>
+                        <span class="price-old">₹1,499</span>
+                    </div>
+                    <div class="product-colors">
+                        <div class="color-dot" style="background:#D42B2B"></div>
+                        <div class="color-dot" style="background:#1a1a1a"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 3 -->
+            <div class="product-card reveal reveal-delay-3">
+                <div class="product-img">
+                    <div class="product-img-inner pc-3 product-placeholder">JEANS</div>
+                    <div class="product-wishlist">♡</div>
+                    <div class="product-quick-view">+ Quick View</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-cat">Jeans</div>
+                    <div class="product-name">High-Waist Charcoal Straight Fit</div>
+                    <div class="product-price">
+                        <span class="price-current">₹899</span>
+                        <span class="price-old">₹1,299</span>
+                    </div>
+                    <div class="product-colors">
+                        <div class="color-dot" style="background:#3d3d3d"></div>
+                        <div class="color-dot" style="background:#1a1a1a"></div>
+                        <div class="color-dot" style="background:#2a1a1a"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 4 -->
+            <div class="product-card reveal reveal-delay-4">
+                <div class="product-img">
+                    <div class="product-img-inner pc-4 product-placeholder">SKIRT</div>
+                    <div class="product-badge">Hot 🔥</div>
+                    <div class="product-wishlist">♡</div>
+                    <div class="product-quick-view">+ Quick View</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-cat">Skirts</div>
+                    <div class="product-name">Crimson Pleated Mini Skirt</div>
+                    <div class="product-price">
+                        <span class="price-current">₹549</span>
+                        <span class="price-old">₹799</span>
+                    </div>
+                    <div class="product-colors">
+                        <div class="color-dot" style="background:#D42B2B"></div>
+                        <div class="color-dot" style="background:#1a1a1a"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 5 -->
+            <div class="product-card reveal reveal-delay-1">
+                <div class="product-img">
+                    <div class="product-img-inner pc-5 product-placeholder">WEST</div>
+                    <div class="product-badge">New</div>
+                    <div class="product-wishlist">♡</div>
+                    <div class="product-quick-view">+ Quick View</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-cat">Western Wear</div>
+                    <div class="product-name">Power Blazer Co-Ord Set</div>
+                    <div class="product-price">
+                        <span class="price-current">₹1,399</span>
+                        <span class="price-old">₹2,099</span>
+                    </div>
+                    <div class="product-colors">
+                        <div class="color-dot" style="background:#1a1a1a"></div>
+                        <div class="color-dot" style="background:#D42B2B"></div>
+                        <div class="color-dot" style="background:#fff; border: 1.5px solid #ccc;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 6 -->
+            <div class="product-card reveal reveal-delay-2">
+                <div class="product-img">
+                    <div class="product-img-inner pc-6 product-placeholder">KURTI</div>
+                    <div class="product-wishlist">♡</div>
+                    <div class="product-quick-view">+ Quick View</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-cat">Tops</div>
+                    <div class="product-name">Wine Embroidered Kurti</div>
+                    <div class="product-price">
+                        <span class="price-current">₹749</span>
+                        <span class="price-old">₹1,099</span>
+                    </div>
+                    <div class="product-colors">
+                        <div class="color-dot" style="background:#5a1a1a"></div>
+                        <div class="color-dot" style="background:#1a1a1a"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 7 -->
+            <div class="product-card reveal reveal-delay-3">
+                <div class="product-img">
+                    <div class="product-img-inner pc-7 product-placeholder">COORD</div>
+                    <div class="product-badge">Sale</div>
+                    <div class="product-wishlist">♡</div>
+                    <div class="product-quick-view">+ Quick View</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-cat">Co-Ord Sets</div>
+                    <div class="product-name">Monochrome Crop & Trouser Set</div>
+                    <div class="product-price">
+                        <span class="price-current">₹1,149</span>
+                        <span class="price-old">₹1,699</span>
+                    </div>
+                    <div class="product-colors">
+                        <div class="color-dot" style="background:#111"></div>
+                        <div class="color-dot" style="background:#3d3d3d"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 8 -->
+            <div class="product-card reveal reveal-delay-4">
+                <div class="product-img">
+                    <div class="product-img-inner pc-8 product-placeholder">MAXI</div>
+                    <div class="product-badge">Trending</div>
+                    <div class="product-wishlist">♡</div>
+                    <div class="product-quick-view">+ Quick View</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-cat">Dresses</div>
+                    <div class="product-name">Deep Rouge Maxi with Slit</div>
+                    <div class="product-price">
+                        <span class="price-current">₹1,299</span>
+                        <span class="price-old">₹1,899</span>
+                    </div>
+                    <div class="product-colors">
+                        <div class="color-dot" style="background:#D42B2B"></div>
+                        <div class="color-dot" style="background:#1a1a1a"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PROMO BANNER ── -->
+    <div class="promo-banner reveal">
+        <div class="promo-text">
+            <div class="label">Limited Time Offer</div>
+            <h2>Up to 40% Off on New Arrivals — Shop Before It's Gone</h2>
+        </div>
+        <a href="#" class="promo-cta">Shop the Sale →</a>
+    </div>
+
+    <!-- ── CATEGORIES ── -->
+    <section id="categories" class="categories">
+        <div class="reveal">
+            <div class="section-label">Browse</div>
+            <h2 class="section-title" style="color: var(--white);">Shop by <em>Category</em></h2>
+        </div>
+        <div class="cat-grid">
+            <div class="cat-card reveal">
+                <div class="cat-bg cbg-1"
+                    style="height:100%; min-height: 560px; display:flex; align-items:center; justify-content:center;">
+                    <span
+                        style="font-family:'Bebas Neue',sans-serif;font-size:10rem;color:rgba(255,255,255,0.04);user-select:none;">DRESS</span>
+                </div>
+                <div class="cat-overlay">
+                    <div class="cat-name">Dresses</div>
+                    <div class="cat-count">42 Products</div>
+                    <a href="#" class="cat-link">Shop Now →</a>
+                </div>
+            </div>
+            <div class="cat-card reveal reveal-delay-1">
+                <div class="cat-bg cbg-2"
+                    style="min-height:100%; display:flex; align-items:center; justify-content:center;">
+                    <span
+                        style="font-family:'Bebas Neue',sans-serif;font-size:5rem;color:rgba(255,255,255,0.08);user-select:none;">TOPS</span>
+                </div>
+                <div class="cat-overlay">
+                    <div class="cat-name">Tops</div>
+                    <div class="cat-count">68 Products</div>
+                    <a href="#" class="cat-link">Shop Now →</a>
+                </div>
+            </div>
+            <div class="cat-card reveal reveal-delay-2">
+                <div class="cat-bg cbg-3"
+                    style="min-height:100%; display:flex; align-items:center; justify-content:center;">
+                    <span
+                        style="font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(255,255,255,0.1);user-select:none;">JEANS</span>
+                </div>
+                <div class="cat-overlay">
+                    <div class="cat-name">Jeans</div>
+                    <div class="cat-count">30 Products</div>
+                    <a href="#" class="cat-link">Shop Now →</a>
+                </div>
+            </div>
+            <div class="cat-card reveal reveal-delay-1">
+                <div class="cat-bg cbg-4"
+                    style="min-height:100%; display:flex; align-items:center; justify-content:center;">
+                    <span
+                        style="font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(255,255,255,0.07);user-select:none;">SKIRTS</span>
+                </div>
+                <div class="cat-overlay">
+                    <div class="cat-name">Skirts</div>
+                    <div class="cat-count">25 Products</div>
+                    <a href="#" class="cat-link">Shop Now →</a>
+                </div>
+            </div>
+            <div class="cat-card reveal reveal-delay-2">
+                <div class="cat-bg cbg-5"
+                    style="min-height:100%; display:flex; align-items:center; justify-content:center;">
+                    <span
+                        style="font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:rgba(255,255,255,0.08);user-select:none;text-align:center;">WESTERN</span>
+                </div>
+                <div class="cat-overlay">
+                    <div class="cat-name">Western</div>
+                    <div class="cat-count">38 Products</div>
+                    <a href="#" class="cat-link">Shop Now →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── INSTAGRAM GRID ── -->
+    <section class="instagram-section" id="instagram">
+        <div class="ig-header reveal">
+            <div>
+                <div class="section-label">Social</div>
+                <h2 class="section-title">As Seen on <em>Instagram</em></h2>
+            </div>
+            <a href="https://instagram.com/revive.thestore" class="ig-handle" target="_blank">
+                <span>📷</span> @revive.thestore
+            </a>
+        </div>
+        <div class="ig-grid reveal">
+            <div class="ig-item">
+                <div class="ig-bg ig-1" style="height:100%"></div>
+                <div class="ig-overlay">
+                    <div class="ig-icon">❤</div>
+                    <div class="ig-likes">1.2k likes</div>
+                </div>
+            </div>
+            <div class="ig-item">
+                <div class="ig-bg ig-2" style="height:100%"></div>
+                <div class="ig-overlay">
+                    <div class="ig-icon">❤</div>
+                    <div class="ig-likes">890 likes</div>
+                </div>
+            </div>
+            <div class="ig-item">
+                <div class="ig-bg ig-3" style="height:100%"></div>
+                <div class="ig-overlay">
+                    <div class="ig-icon">❤</div>
+                    <div class="ig-likes">2.1k likes</div>
+                </div>
+            </div>
+            <div class="ig-item">
+                <div class="ig-bg ig-4" style="height:100%"></div>
+                <div class="ig-overlay">
+                    <div class="ig-icon">❤</div>
+                    <div class="ig-likes">740 likes</div>
+                </div>
+            </div>
+            <div class="ig-item">
+                <div class="ig-bg ig-5" style="height:100%"></div>
+                <div class="ig-overlay">
+                    <div class="ig-icon">❤</div>
+                    <div class="ig-likes">1.5k likes</div>
+                </div>
+            </div>
+            <div class="ig-item">
+                <div class="ig-bg ig-6" style="height:100%"></div>
+                <div class="ig-overlay">
+                    <div class="ig-icon">❤</div>
+                    <div class="ig-likes">980 likes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── BRAND STORY ── -->
+    <div class="brand-story" id="story">
+        <div class="story-left">
+            <div class="section-label">Our Story</div>
+            <h2 class="section-title">More Than <em>Fashion</em><br>It's a Movement</h2>
+            <p class="story-body">REVIVE was born from a simple belief — every woman deserves to feel extraordinary
+                without breaking the bank. We design clothing that speaks before you do, that turns heads and starts
+                conversations.<br><br>Our collections are handpicked with passion, crafted with quality, and curated for
+                the modern Indian woman who wears her confidence as boldly as her outfit.</p>
+            <div class="story-cta">
+                <a href="#" class="btn-primary" style="display:inline-block">Discover Our Story</a>
+            </div>
+        </div>
+        <div class="story-right reveal">
+            <div class="story-visual">
+                <div class="story-visual-text">R<br>E<br>V</div>
+            </div>
+            <div class="story-stat-float">
+                <div class="stat-num">5★</div>
+                <div class="stat-label">Customer Love</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── WHY CHOOSE US ── -->
+    <section class="why-us">
+        <div class="reveal" style="text-align:center; margin-bottom: 0;">
+            <div class="section-label" style="justify-content:center;">Why REVIVE</div>
+            <h2 class="section-title" style="text-align:center;">The REVIVE <em>Difference</em></h2>
+        </div>
+        <div class="why-grid">
+            <div class="why-card reveal reveal-delay-1">
+                <div class="why-icon">💰</div>
+                <div class="why-title">Unbeatable Prices</div>
+                <div class="why-desc">Premium fashion shouldn't cost a fortune. Starting from just ₹499, we make
+                    trending styles accessible for every budget.</div>
+            </div>
+            <div class="why-card reveal reveal-delay-2">
+                <div class="why-icon">✨</div>
+                <div class="why-title">Weekly New Drops</div>
+                <div class="why-desc">Fresh styles every week inspired by the latest Instagram & international fashion
+                    trends — your wardrobe stays forever current.</div>
+            </div>
+            <div class="why-card reveal reveal-delay-3">
+                <div class="why-icon">🧵</div>
+                <div class="why-title">Quality Fabrics</div>
+                <div class="why-desc">Each piece is carefully selected for fabric quality, fit, and finish. Because you
+                    deserve clothing that feels as good as it looks.</div>
+            </div>
+            <div class="why-card reveal reveal-delay-4">
+                <div class="why-icon">⚡</div>
+                <div class="why-title">Express Delivery</div>
+                <div class="why-desc">Fast, reliable shipping directly to your door. Order today, wear it this weekend.
+                    Real fashion waits for no one.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── REVIEWS ── -->
+    <section class="reviews" id="reviews">
+        <div class="reveal" style="text-align:center">
+            <div class="section-label" style="justify-content:center;">Testimonials</div>
+            <h2 class="section-title" style="text-align:center;">What Our <em>Customers</em> Say</h2>
+        </div>
+        <div class="reviews-grid">
+            <div class="review-card reveal reveal-delay-1">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Absolutely obsessed with my order! The quality is way better than expected for
+                    the price. Got so many compliments on my new dress. REVIVE is now my go-to brand."</p>
+                <div class="review-author">
+                    <div class="review-avatar ra-1">P</div>
+                    <div>
+                        <div class="review-name">Priya S.</div>
+                        <div class="review-loc">Mumbai, India</div>
+                        <div class="review-ig">@priyasthings_</div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card reveal reveal-delay-2">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"The co-ord set I ordered is literally perfect. It fits like a dream and the
+                    fabric is so comfortable. Delivery was super fast too. Already planning my next order!"</p>
+                <div class="review-author">
+                    <div class="review-avatar ra-2">A</div>
+                    <div>
+                        <div class="review-name">Ananya K.</div>
+                        <div class="review-loc">Ahmedabad, India</div>
+                        <div class="review-ig">@ananya.kaur</div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card reveal reveal-delay-3">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"REVIVE has completely changed how I shop for clothes. Everything is so trendy
+                    and affordable. The packaging is also gorgeous — feels premium from the moment it arrives."</p>
+                <div class="review-author">
+                    <div class="review-avatar ra-3">R</div>
+                    <div>
+                        <div class="review-name">Riya M.</div>
+                        <div class="review-loc">Surat, India</div>
+                        <div class="review-ig">@riya.modz</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <span class="footer-logo">REVI<span>VE</span></span>
+                <p class="footer-tagline">Fashion that revives your confidence. Premium, trendy, and beautifully crafted
+                    for the modern woman.</p>
+                <a href="https://wa.me/91XXXXXXXXXX" class="footer-whatsapp" target="_blank">
+                    💬 Chat on WhatsApp
+                </a>
+            </div>
+            <div>
+                <div class="footer-col-title">Shop</div>
+                <ul class="footer-links">
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">Dresses</a></li>
+                    <li><a href="#">Tops & Kurtis</a></li>
+                    <li><a href="#">Jeans & Pants</a></li>
+                    <li><a href="#">Western Wear</a></li>
+                    <li><a href="#">Sale</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-col-title">Info</div>
+                <ul class="footer-links">
+                    <li><a href="#">About REVIVE</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-col-title">Contact</div>
+                <div class="footer-contact-item"><strong>Instagram</strong><br>@revive.thestore</div>
+                <div class="footer-contact-item"><strong>WhatsApp</strong><br>+91 XXXXX XXXXX</div>
+                <div class="footer-contact-item"><strong>Email</strong><br>hello@revivestore.in</div>
+                <div class="footer-contact-item"><strong>Hours</strong><br>Mon–Sat, 10am–7pm</div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copyright">© 2025 REVIVE. All rights reserved. Made with ❤ in India.</div>
+            <div class="footer-socials">
+                <a href="#" class="social-link">📷</a>
+                <a href="#" class="social-link">💬</a>
+                <a href="#" class="social-link">📘</a>
+                <a href="#" class="social-link">🐦</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── Custom Cursor ──
+        const cursor = document.getElementById('cursor');
+        const cursorRing = document.getElementById('cursor-ring');
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+
+        function animateRing() {
+            ringX += (mouseX - ringX) * 0.12;
+            ringY += (mouseY - ringY) * 0.12;
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+
+        // Hover effects
+        const hoverEls = document.querySelectorAll('a, button, .product-card, .cat-card, .ig-item, .why-card, .review-card, .color-dot, .product-wishlist');
+        hoverEls.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // ── Navbar scroll ──
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // ── Scroll reveal ──
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        reveals.forEach(el => observer.observe(el));
+
+        // ── Tab buttons ──
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // ── Wishlist toggle ──
+        document.querySelectorAll('.product-wishlist').forEach(btn => {
+            btn.addEventListener('click', function () {
+                this.textContent = this.textContent === '♡' ? '♥' : '♡';
+                this.style.color = this.textContent === '♥' ? '#D42B2B' : '';
+            });
+        });
+
+        // ── Parallax on hero ──
+        const heroRight = document.querySelector('.hero-right');
+        window.addEventListener('scroll', () => {
+            if (heroRight) {
+                const scrollY = window.scrollY;
+                heroRight.style.transform = `translateY(${scrollY * 0.12}px)`;
+            }
+        });
+
+        // ── Cat card min-height fix ──
+        document.querySelectorAll('.cat-card').forEach(card => {
+            if (card.offsetHeight < 200) card.style.minHeight = '280px';
+        });
+    </script>
+</body>
+
+</html>
