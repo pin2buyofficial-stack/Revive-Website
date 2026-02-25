@@ -565,6 +565,43 @@
             transform: scale(1.06);
         }
 
+        .product-img-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.6s ease;
+            display: block;
+        }
+
+        .product-card:hover .product-img-inner img {
+            transform: scale(1.06);
+        }
+
+        .cat-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .cat-card:hover .cat-bg img {
+            transform: scale(1.04);
+        }
+
+        .ig-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .ig-item:hover .ig-bg img {
+            transform: scale(1.08);
+        }
+
         .product-placeholder {
             width: 100%;
             height: 100%;
@@ -1685,9 +1722,9 @@
         </div>
         <div class="hero-right">
             <div class="hero-image-wrap">
-                <div class="hero-img-placeholder">
-                    <div class="hero-img-text">REVIVE</div>
-                </div>
+                <img src="https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=900&q=80&fit=crop"
+                    alt="REVIVE Fashion Hero"
+                    style="width:100%;height:100%;object-fit:cover;object-position:center top;">
             </div>
             <div class="hero-tag">
                 <div class="hero-tag-label">Starting From</div>
@@ -1758,7 +1795,11 @@
             <!-- Product 1 -->
             <div class="product-card reveal reveal-delay-1">
                 <div class="product-img">
-                    <div class="product-img-inner pc-1 product-placeholder">TOP</div>
+                    <div class="product-img-inner" style="overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=500&q=80&fit=crop&crop=top"
+                            alt="Noir Ruffle Off-Shoulder Top"
+                            style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
+                    </div>
                     <div class="product-badge">Best Seller</div>
                     <div class="product-wishlist">♡</div>
                     <div class="product-quick-view">+ Quick View</div>
@@ -1780,7 +1821,11 @@
             <!-- Product 2 -->
             <div class="product-card reveal reveal-delay-2">
                 <div class="product-img">
-                    <div class="product-img-inner pc-2 product-placeholder">DRESS</div>
+                    <div class="product-img-inner" style="overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=500&q=80&fit=crop&crop=top"
+                            alt="Scarlet Midi Wrap Dress"
+                            style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
+                    </div>
                     <div class="product-badge">New</div>
                     <div class="product-wishlist">♡</div>
                     <div class="product-quick-view">+ Quick View</div>
@@ -1801,7 +1846,11 @@
             <!-- Product 3 -->
             <div class="product-card reveal reveal-delay-3">
                 <div class="product-img">
-                    <div class="product-img-inner pc-3 product-placeholder">JEANS</div>
+                    <div class="product-img-inner" style="overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&q=80&fit=crop&crop=top"
+                            alt="High-Waist Charcoal Straight Fit"
+                            style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
+                    </div>
                     <div class="product-wishlist">♡</div>
                     <div class="product-quick-view">+ Quick View</div>
                 </div>
@@ -1822,7 +1871,11 @@
             <!-- Product 4 -->
             <div class="product-card reveal reveal-delay-4">
                 <div class="product-img">
-                    <div class="product-img-inner pc-4 product-placeholder">SKIRT</div>
+                    <div class="product-img-inner" style="overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=500&q=80&fit=crop&crop=top"
+                            alt="Crimson Pleated Mini Skirt"
+                            style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
+                    </div>
                     <div class="product-badge">Hot 🔥</div>
                     <div class="product-wishlist">♡</div>
                     <div class="product-quick-view">+ Quick View</div>
@@ -1843,7 +1896,11 @@
             <!-- Product 5 -->
             <div class="product-card reveal reveal-delay-1">
                 <div class="product-img">
-                    <div class="product-img-inner pc-5 product-placeholder">WEST</div>
+                    <div class="product-img-inner" style="overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1551048632-24e444b48a3e?w=500&q=80&fit=crop&crop=top"
+                            alt="Power Blazer Co-Ord Set"
+                            style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
+                    </div>
                     <div class="product-badge">New</div>
                     <div class="product-wishlist">♡</div>
                     <div class="product-quick-view">+ Quick View</div>
@@ -1865,7 +1922,11 @@
             <!-- Product 6 -->
             <div class="product-card reveal reveal-delay-2">
                 <div class="product-img">
-                    <div class="product-img-inner pc-6 product-placeholder">KURTI</div>
+                    <div class="product-img-inner" style="overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1614786269829-d24616faf56d?w=500&q=80&fit=crop&crop=top"
+                            alt="Wine Embroidered Kurti"
+                            style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
+                    </div>
                     <div class="product-wishlist">♡</div>
                     <div class="product-quick-view">+ Quick View</div>
                 </div>
@@ -1885,14 +1946,18 @@
             <!-- Product 7 -->
             <div class="product-card reveal reveal-delay-3">
                 <div class="product-img">
-                    <div class="product-img-inner pc-7 product-placeholder">COORD</div>
+                    <div class="product-img-inner" style="overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500&q=80&fit=crop&crop=top"
+                            alt="Monochrome Crop & Trouser Set"
+                            style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
+                    </div>
                     <div class="product-badge">Sale</div>
                     <div class="product-wishlist">♡</div>
                     <div class="product-quick-view">+ Quick View</div>
                 </div>
                 <div class="product-info">
                     <div class="product-cat">Co-Ord Sets</div>
-                    <div class="product-name">Monochrome Crop & Trouser Set</div>
+                    <div class="product-name">Monochrome Crop &amp; Trouser Set</div>
                     <div class="product-price">
                         <span class="price-current">₹1,149</span>
                         <span class="price-old">₹1,699</span>
@@ -1906,7 +1971,11 @@
             <!-- Product 8 -->
             <div class="product-card reveal reveal-delay-4">
                 <div class="product-img">
-                    <div class="product-img-inner pc-8 product-placeholder">MAXI</div>
+                    <div class="product-img-inner" style="overflow:hidden;">
+                        <img src="https://images.unsplash.com/photo-1577900232427-18219b9166a0?w=500&q=80&fit=crop&crop=top"
+                            alt="Deep Rouge Maxi with Slit"
+                            style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
+                    </div>
                     <div class="product-badge">Trending</div>
                     <div class="product-wishlist">♡</div>
                     <div class="product-quick-view">+ Quick View</div>
@@ -1944,10 +2013,10 @@
         </div>
         <div class="cat-grid">
             <div class="cat-card reveal">
-                <div class="cat-bg cbg-1"
-                    style="height:100%; min-height: 560px; display:flex; align-items:center; justify-content:center;">
-                    <span
-                        style="font-family:'Bebas Neue',sans-serif;font-size:10rem;color:rgba(255,255,255,0.04);user-select:none;">DRESS</span>
+                <div class="cat-bg" style="height:100%; min-height: 560px; overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800&q=80&fit=crop"
+                        alt="Dresses Category"
+                        style="width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform 0.6s ease;">
                 </div>
                 <div class="cat-overlay">
                     <div class="cat-name">Dresses</div>
@@ -1956,10 +2025,10 @@
                 </div>
             </div>
             <div class="cat-card reveal reveal-delay-1">
-                <div class="cat-bg cbg-2"
-                    style="min-height:100%; display:flex; align-items:center; justify-content:center;">
-                    <span
-                        style="font-family:'Bebas Neue',sans-serif;font-size:5rem;color:rgba(255,255,255,0.08);user-select:none;">TOPS</span>
+                <div class="cat-bg" style="min-height:100%; overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&q=80&fit=crop&crop=top"
+                        alt="Tops Category"
+                        style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
                 </div>
                 <div class="cat-overlay">
                     <div class="cat-name">Tops</div>
@@ -1968,10 +2037,10 @@
                 </div>
             </div>
             <div class="cat-card reveal reveal-delay-2">
-                <div class="cat-bg cbg-3"
-                    style="min-height:100%; display:flex; align-items:center; justify-content:center;">
-                    <span
-                        style="font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(255,255,255,0.1);user-select:none;">JEANS</span>
+                <div class="cat-bg" style="min-height:100%; overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&q=80&fit=crop&crop=top"
+                        alt="Jeans Category"
+                        style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
                 </div>
                 <div class="cat-overlay">
                     <div class="cat-name">Jeans</div>
@@ -1980,10 +2049,10 @@
                 </div>
             </div>
             <div class="cat-card reveal reveal-delay-1">
-                <div class="cat-bg cbg-4"
-                    style="min-height:100%; display:flex; align-items:center; justify-content:center;">
-                    <span
-                        style="font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(255,255,255,0.07);user-select:none;">SKIRTS</span>
+                <div class="cat-bg" style="min-height:100%; overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1551803091-e20673f15770?w=600&q=80&fit=crop&crop=top"
+                        alt="Skirts Category"
+                        style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
                 </div>
                 <div class="cat-overlay">
                     <div class="cat-name">Skirts</div>
@@ -1992,10 +2061,10 @@
                 </div>
             </div>
             <div class="cat-card reveal reveal-delay-2">
-                <div class="cat-bg cbg-5"
-                    style="min-height:100%; display:flex; align-items:center; justify-content:center;">
-                    <span
-                        style="font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:rgba(255,255,255,0.08);user-select:none;text-align:center;">WESTERN</span>
+                <div class="cat-bg" style="min-height:100%; overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1551048632-24e444b48a3e?w=600&q=80&fit=crop&crop=top"
+                        alt="Western Category"
+                        style="width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 0.6s ease;">
                 </div>
                 <div class="cat-overlay">
                     <div class="cat-name">Western</div>
@@ -2019,42 +2088,66 @@
         </div>
         <div class="ig-grid reveal">
             <div class="ig-item">
-                <div class="ig-bg ig-1" style="height:100%"></div>
+                <div class="ig-bg" style="height:100%;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80&fit=crop"
+                        alt="Instagram post 1"
+                        style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                </div>
                 <div class="ig-overlay">
                     <div class="ig-icon">❤</div>
                     <div class="ig-likes">1.2k likes</div>
                 </div>
             </div>
             <div class="ig-item">
-                <div class="ig-bg ig-2" style="height:100%"></div>
+                <div class="ig-bg" style="height:100%;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80&fit=crop"
+                        alt="Instagram post 2"
+                        style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                </div>
                 <div class="ig-overlay">
                     <div class="ig-icon">❤</div>
                     <div class="ig-likes">890 likes</div>
                 </div>
             </div>
             <div class="ig-item">
-                <div class="ig-bg ig-3" style="height:100%"></div>
+                <div class="ig-bg" style="height:100%;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80&fit=crop"
+                        alt="Instagram post 3"
+                        style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                </div>
                 <div class="ig-overlay">
                     <div class="ig-icon">❤</div>
                     <div class="ig-likes">2.1k likes</div>
                 </div>
             </div>
             <div class="ig-item">
-                <div class="ig-bg ig-4" style="height:100%"></div>
+                <div class="ig-bg" style="height:100%;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80&fit=crop"
+                        alt="Instagram post 4"
+                        style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                </div>
                 <div class="ig-overlay">
                     <div class="ig-icon">❤</div>
                     <div class="ig-likes">740 likes</div>
                 </div>
             </div>
             <div class="ig-item">
-                <div class="ig-bg ig-5" style="height:100%"></div>
+                <div class="ig-bg" style="height:100%;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1566206091558-7f218b696731?w=400&q=80&fit=crop"
+                        alt="Instagram post 5"
+                        style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                </div>
                 <div class="ig-overlay">
                     <div class="ig-icon">❤</div>
                     <div class="ig-likes">1.5k likes</div>
                 </div>
             </div>
             <div class="ig-item">
-                <div class="ig-bg ig-6" style="height:100%"></div>
+                <div class="ig-bg" style="height:100%;overflow:hidden;">
+                    <img src="https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=400&q=80&fit=crop"
+                        alt="Instagram post 6"
+                        style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;">
+                </div>
                 <div class="ig-overlay">
                     <div class="ig-icon">❤</div>
                     <div class="ig-likes">980 likes</div>
@@ -2077,8 +2170,9 @@
             </div>
         </div>
         <div class="story-right reveal">
-            <div class="story-visual">
-                <div class="story-visual-text">R<br>E<br>V</div>
+            <div class="story-visual" style="background:none; padding:0;">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&fit=crop"
+                    alt="REVIVE Brand Story" style="width:100%;height:100%;object-fit:cover;border-radius:4px;">
             </div>
             <div class="story-stat-float">
                 <div class="stat-num">5★</div>
